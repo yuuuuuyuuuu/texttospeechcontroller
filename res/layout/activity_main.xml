@@ -1,0 +1,77 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="top"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textViewHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_header_background"
+            android:text="TextView"
+            android:textColor="@color/color_header_text"
+            android:textSize="@dimen/textsize_small" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/common_margin_large"
+        android:paddingLeft="@dimen/padding_small" >
+
+        <TextView
+            android:id="@+id/textViewLabelCandidate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/label_candidates" />
+
+        <ListView
+            android:id="@+id/listViewCandidates"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/candidate_listview_height"
+            android:layout_below="@id/textViewLabelCandidate" >
+
+        </ListView>
+
+        <!-- 
+        <Button
+            android:id="@+id/buttonAddCandidate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/listViewCandidates"
+            android:drawableTop="@drawable/ic_action_new"
+            android:paddingTop="@dimen/common_margin_midium" />
+ -->
+
+        <ImageButton
+            android:id="@+id/buttonAddCandidate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/listViewCandidates"
+            android:layout_marginRight="@dimen/common_margin_small"
+            android:src="@drawable/ic_action_new" >
+
+        </ImageButton>
+
+        <Button
+            android:id="@+id/buttonExecuteTextToSpeech"
+            android:layout_width="@dimen/texttospeech_button_width"
+            android:layout_height="@dimen/texttospeech_button_height"
+            android:layout_below="@id/buttonAddCandidate"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="false"
+            android:layout_marginTop="@dimen/common_icon_size_midium"
+            android:background="@drawable/button_background"
+            android:text="@string/label_execute" />
+
+    </RelativeLayout>
+
+</RelativeLayout>
