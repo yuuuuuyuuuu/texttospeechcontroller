@@ -16,6 +16,7 @@ import android.content.DialogInterface;
 import android.content.Loader;
 import android.content.DialogInterface.OnShowListener;
 import android.database.Cursor;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,6 +37,8 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity implements OnClickListener, OnShowListener, android.content.DialogInterface.OnClickListener, OnItemClickListener, OnItemLongClickListener {
 
+	private final String TAG = "MainActivity";
+	
 	private ImageButton mButtonAddCandidate = null;
 	private Button mButtonDeleteCandidate = null;
 	private Button mButtonSpeak = null;
@@ -57,6 +60,8 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 	
 	private Cursor mDbCursor = null;
 	
+	private PreferenceController mPreferenceController = null;
+	
 	private static final Uri DB_URI = Uri.parse("content://com.texttospeechcontroller");
 	private static final String[] DB_COLUMNS = new String[]{"_id", "sentence"};
 	
@@ -64,6 +69,10 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		// Window settings
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+				
 		setContentView(R.layout.activity_main);
 		
 		mTextToSpeechController = new TextToSpeechController(this);
@@ -72,6 +81,16 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 		getLoaderManager().initLoader(0, null, mCursorCallbacks);
 		
 		initViews();
+		
+		initSettings();
+	}
+
+	private void initSettings() {
+		
+		// Preferences
+		mPreferenceController = new PreferenceController(this);
+		
+		
 	}
 
 	@Override
@@ -100,8 +119,6 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 
 	private void initViews()
 	{
-		// Window settings
-		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		
 		mButtonAddCandidate = (ImageButton)findViewById(R.id.buttonAddCandidate);
 		mButtonAddCandidate.setOnClickListener(this);

@@ -38,8 +38,6 @@ public class PreferenceController {
 	{
 		if(null == mSharedPreferences) return null;
 		
-		
-		
 		Locale currentLocale = new Locale(mSharedPreferences.getString(PreferenceKeys.PREFERENCE_KEY_CURRENT_LOCALE, Locale.ENGLISH.toString()));
 		
 		Log.d(TAG, currentLocale.toString());
