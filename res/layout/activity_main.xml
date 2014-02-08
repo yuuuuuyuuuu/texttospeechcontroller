@@ -24,8 +24,7 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/common_margin_large"
-        android:paddingLeft="@dimen/padding_small" >
+        android:layout_marginTop="@dimen/common_margin_large" >
 
         <TextView
             android:id="@+id/textViewLabelCandidate"
@@ -61,14 +60,44 @@
 
         </ImageButton>
 
+        <LinearLayout
+            android:id="@+id/linearLayoutLanguage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/buttonAddCandidate"
+            android:gravity="center_horizontal" >
+
+            <Button
+                android:id="@+id/buttonNextLangLeft"
+                android:layout_width="@dimen/button_left_right_arrow_width"
+                android:layout_height="@dimen/button_left_right_arrow_height"
+                android:background="@drawable/button_left_arrow" />
+
+            <TextView
+                android:id="@+id/textViewCurrentLang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/textview_current_language_horizontal_margin"
+                android:layout_marginRight="@dimen/textview_current_language_horizontal_margin"
+                android:text="Japanese"
+                android:textSize="@dimen/textsize_small" />
+
+            <Button
+                android:id="@+id/buttonNextLangRIght"
+                android:layout_width="@dimen/button_left_right_arrow_width"
+                android:layout_height="@dimen/button_left_right_arrow_height"
+                android:background="@drawable/button_right_arrow" />
+
+        </LinearLayout>
+
         <Button
             android:id="@+id/buttonExecuteTextToSpeech"
             android:layout_width="@dimen/texttospeech_button_width"
             android:layout_height="@dimen/texttospeech_button_height"
-            android:layout_below="@id/buttonAddCandidate"
+            android:layout_below="@id/linearLayoutLanguage"
             android:layout_centerInParent="true"
             android:layout_centerVertical="false"
-            android:layout_marginTop="@dimen/common_icon_size_midium"
+            android:layout_marginTop="@dimen/common_icon_size_small"
             android:background="@drawable/button_background"
             android:text="@string/label_execute"
             android:textColor="@color/color_white_basic_text"
