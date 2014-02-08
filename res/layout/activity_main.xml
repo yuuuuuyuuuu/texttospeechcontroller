@@ -70,7 +70,9 @@
             android:layout_centerVertical="false"
             android:layout_marginTop="@dimen/common_icon_size_midium"
             android:background="@drawable/button_background"
-            android:text="@string/label_execute" />
+            android:text="@string/label_execute"
+            android:textColor="@color/color_white_basic_text"
+            android:textStyle="bold" />
 
     </RelativeLayout>
 

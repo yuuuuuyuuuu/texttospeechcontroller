@@ -5,8 +5,8 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="candidate_listview_width">250dp</dimen>
     <dimen name="candidate_listview_height">320dp</dimen>
-    <dimen name="texttospeech_button_width">150dp</dimen>
-    <dimen name="texttospeech_button_height">80dp</dimen>
+    <dimen name="texttospeech_button_width">110dp</dimen>
+    <dimen name="texttospeech_button_height">110dp</dimen>
     <dimen name="stop_button_width">130dp</dimen>
     <dimen name="stop_button_height">100dp</dimen>
     <dimen name="common_margin_small">10dp</dimen>
@@ -31,6 +31,7 @@
     <dimen name="button_background_roundness_medium">60dip</dimen>
     <dimen name="button_background_roundness_large">90dp</dimen>
     <color name="color_selected_text">#20B2AA</color>
+    <color name="color_white_basic_text">#ffffff</color>
     <color name="color_header_background">#282828</color>
     <color name="color_header_text">#D0D0D0</color>
     
