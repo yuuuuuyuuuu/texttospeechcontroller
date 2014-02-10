@@ -6,9 +6,11 @@
     <dimen name="candidate_listview_width">250dp</dimen>
     <dimen name="candidate_listview_height">320dp</dimen>
     <dimen name="texttospeech_button_width">110dp</dimen>
-    <dimen name="texttospeech_button_height">110dp</dimen>
+    <dimen name="texttospeech_button_height">90dp</dimen>
     <dimen name="stop_button_width">130dp</dimen>
     <dimen name="stop_button_height">100dp</dimen>
+    <dimen name="add_button_width">130dp</dimen>
+    <dimen name="add_button_height">50dp</dimen>
     <dimen name="common_margin_small">10dp</dimen>
     <dimen name="common_margin_midium">20dp</dimen>
     <dimen name="common_margin_large">30dp</dimen>
@@ -16,8 +18,9 @@
     <dimen name="common_icon_size_small">20dp</dimen>
     <dimen name="common_icon_size_midium">30dp</dimen>
     <dimen name="common_icon_size_large">40dp</dimen>
-    <dimen name="textsize_medium">12pt</dimen>
+    <dimen name="textsize_xsmall">6pt</dimen>
     <dimen name="textsize_small">8pt</dimen>
+    <dimen name="textsize_medium">12pt</dimen>
     <dimen name="textsize_large">18pt</dimen>
     <dimen name="padding_small">15dp</dimen>
     <dimen name="listview_item_width_small">30dp</dimen>
@@ -30,13 +33,19 @@
     <dimen name="button_background_roundness_small">30dp</dimen>
     <dimen name="button_background_roundness_medium">60dp</dimen>
     <dimen name="button_background_roundness_large">90dp</dimen>
-    <dimen name="button_left_right_arrow_width">50dp</dimen>
-    <dimen name="button_left_right_arrow_height">50dp</dimen>
+    <dimen name="button_left_right_arrow_width">40dp</dimen>
+    <dimen name="button_left_right_arrow_height">40dp</dimen>
     <dimen name="textview_current_language_horizontal_margin">50dp</dimen>
     <color name="color_selected_text">#20B2AA</color>
     <color name="color_white_basic_text">#ffffff</color>
     <color name="color_header_background">#282828</color>
     <color name="color_header_text">#D0D0D0</color>
+    <color name="color_background_silver">#dcdcdc</color>
+    <color name="color_background_bright_pink">#E6EE87B4</color>
+    <color name="color_background_pale_pink">#E6F4B4D0</color>
+    <color name="color_background_very_pale_pink">#E6FADCE9</color>
+    <color name="color_background_white">#FFFFFF</color>
+    <color name="color_background_transparent">#00FFFFFF</color>
     
 
 </resources>
