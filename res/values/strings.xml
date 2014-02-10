@@ -6,7 +6,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="label_candidates">Candidates</string>
     <string name="label_execute">Speak Now!</string>
-    <string name="label_add">Add New Word</string>
+    <string name="label_add">+ Add New Word</string>
     <string name="label_delete">Delete</string>
     <string name="label_repeat">Repeat</string>
     <string name="label_stop">Stop</string>

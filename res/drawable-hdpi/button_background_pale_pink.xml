@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+   
+   <!-- pressed -->
+   <item android:state_pressed="true"
+          android:drawable="@color/color_background_pale_pink" />
+   
+   <!-- default -->
+   <item android:drawable="@color/color_background_very_pale_pink" /> 
+
+</selector>

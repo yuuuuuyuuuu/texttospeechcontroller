@@ -52,7 +52,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/texttospeech_button_height"
                 android:layout_alignParentBottom="true"
-                android:background="@color/color_background_bright_pink"
+                android:background="@drawable/button_background_pink"
                 android:gravity="center_vertical|center_horizontal"
                 android:text="@string/label_execute"
                 android:textColor="@color/color_white_basic_text"
@@ -96,14 +96,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_above="@id/linearLayoutLanguage"
-                android:background="@color/color_background_very_pale_pink"
                 android:gravity="center_vertical|center_horizontal" >
 
                 <Button
                     android:id="@+id/buttonAddNewCandidate"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="@dimen/add_button_height"
-                    android:background="@color/color_background_transparent"
+                    android:background="@drawable/button_background_pale_pink"
                     android:text="@string/label_add"
                     android:textColor="@color/color_background_bright_pink" />
 
