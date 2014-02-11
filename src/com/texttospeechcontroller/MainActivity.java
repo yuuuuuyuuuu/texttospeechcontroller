@@ -35,7 +35,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class MainActivity extends Activity implements OnClickListener, OnShowListener, android.content.DialogInterface.OnClickListener, OnItemClickListener, OnItemLongClickListener {
+public class MainActivity extends Activity implements OnClickListener, OnShowListener, android.content.DialogInterface.OnClickListener, OnItemClickListener {
 
 	private final String TAG = "MainActivity";
 	
@@ -58,8 +58,6 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 	private TextView mTextViewAddDialog = null;
 	
 	private AlertDialog mLanguageSelectDialog = null;
-	
-	private AlertDialog mDeletePhraseDialog = null;
 	
 	private TextToSpeechController mTextToSpeechController = null;
 	
@@ -131,7 +129,6 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 		mSentenceListView.setAdapter(mCandidateAdapter);
 		
 		mSentenceListView.setOnItemClickListener(this);
-		mSentenceListView.setOnItemLongClickListener(this);
 		
 		// New candidate dialog
 		LayoutInflater inflator = LayoutInflater.from(this);
@@ -189,16 +186,6 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 			public void onClick(DialogInterface dialog, int which) {
 				// TODO Auto-generated method stub
 				dialog.cancel();
-			}
-		}).create();
-		
-		mDeletePhraseDialog = new AlertDialog.Builder(this)
-		.setTitle(R.string.dialog_delete_phrase_title)
-		.setNegativeButton(R.string.dialog_delete_phrase_delete, new DialogInterface.OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				// TODO: implement delete process
 			}
 		}).create();
 		
@@ -392,14 +379,4 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
         
 	}
 
-	@Override
-	public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int pos,
-			long id) {
-		
-		CharSequence message = mSentenceListAdaper.getItem(pos);
-		mDeletePhraseDialog.setMessage(message);
-		mDeletePhraseDialog.show();
-		
-		return false;
-	}
 }
