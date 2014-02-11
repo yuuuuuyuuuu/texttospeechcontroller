@@ -1,6 +1,7 @@
 package com.texttospeechcontroller;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import android.net.Uri;
@@ -16,6 +17,7 @@ import android.content.DialogInterface;
 import android.content.Loader;
 import android.content.DialogInterface.OnShowListener;
 import android.database.Cursor;
+import android.speech.tts.TextToSpeech.EngineInfo;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -43,6 +45,7 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 	private Button mButtonDeleteCandidate = null;
 	private Button mButtonSpeak = null;
 	private Button mButtonSetLanguage = null;
+	private Button mButtonSetSpeechEngine = null;
 	
 	private TextView mTextViewCandidateNumber = null;
 	private TextView mTextViewCurrentEngine = null;
@@ -59,7 +62,10 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 	
 	private AlertDialog mLanguageSelectDialog = null;
 	
+	private AlertDialog mSpeechEngineSelectDialog = null;
+	
 	private TextToSpeechController mTextToSpeechController = null;
+	private SpeechEngineInformation mSpeechEngineInformation = null;
 	
 	private Cursor mDbCursor = null;
 	
@@ -69,6 +75,8 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 	private static final String[] DB_COLUMNS = new String[]{"_id", "sentence"};
 	
 	private static final CharSequence[] LANGUAGE_DIALOG_SELECTION = new String[]{"English", "Japanese"};
+	private  CharSequence[] mSpeechEngineInfoSelection = new String[]{};
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -80,6 +88,8 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 		
 		mTextToSpeechController = new TextToSpeechController(this);
 		mTextToSpeechController.SetLocale(Locale.JAPANESE);
+		
+		mSpeechEngineInformation = new SpeechEngineInformation(this);
 		
 		getLoaderManager().initLoader(0, null, mCursorCallbacks);
 		
@@ -113,6 +123,9 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 		
 		mButtonSetLanguage = (Button)findViewById(R.id.buttonSetLanguage);
 		mButtonSetLanguage.setOnClickListener(this);
+		
+		mButtonSetSpeechEngine = (Button)findViewById(R.id.buttonSetSpeechEngine);
+		mButtonSetSpeechEngine.setOnClickListener(this);
 		
 		// TODO: implement handler
 		
@@ -189,6 +202,26 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 			}
 		}).create();
 		
+		// Engine Selection Dialog
+		mSpeechEngineSelectDialog = new AlertDialog.Builder(this)
+		.setTitle(R.string.dialog_label_select_engine)
+		.setSingleChoiceItems(mSpeechEngineInfoSelection, 0, new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface arg0, int arg1) {
+				// TODO Auto-generated method stub
+				
+			}
+		})
+		.setPositiveButton(R.string.dialog_language_ok, new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				dialog.cancel();
+			}
+		}).create();
+		
 		mTextViewCandidateNumber = (TextView)findViewById(R.id.textViewCurrentCandidatesNumber);
 		mTextViewCurrentEngine = (TextView)findViewById(R.id.textviewCurrentEngine);
 		mTextViewCurrentLanguage = (TextView)findViewById(R.id.textViewLanguageSetting);
@@ -236,6 +269,10 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 				// show dialog for language setting
 				showLanguageSelectDialog();
 			}
+			else if(clickedButton == mButtonSetSpeechEngine)
+			{
+				showSpeechEngineSelectDialog();
+			}
 			else
 			{
 				assert(false);
@@ -258,6 +295,45 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 	{
 		mLanguageSelectDialog.show();
 	}
+	
+	private void showSpeechEngineSelectDialog()
+	{
+		createSpeechEngineDialog();
+		mSpeechEngineSelectDialog.show();
+	}
+	
+	private void createSpeechEngineDialog()
+	{
+        List<EngineInfo> engineInfoList = mSpeechEngineInformation.GetAvailableEngines();
+		
+		List<String> infoList = new ArrayList<String>();
+		
+		for(int i = 0; i < engineInfoList.size(); i++)
+		{
+			infoList.add(engineInfoList.get(i).label);
+		}
+		
+		mSpeechEngineInfoSelection = infoList.toArray(new CharSequence[infoList.size()]);
+		
+		// Engine Selection Dialog
+		mSpeechEngineSelectDialog = new AlertDialog.Builder(this)
+		.setTitle(R.string.dialog_label_select_engine)
+		.setSingleChoiceItems(mSpeechEngineInfoSelection, 0, new DialogInterface.OnClickListener() {		
+			@Override
+			public void onClick(DialogInterface arg0, int arg1) {
+				// TODO Auto-generated method stub
+						
+			}
+		})
+		.setPositiveButton(R.string.dialog_language_ok, new DialogInterface.OnClickListener() {		
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				dialog.cancel();
+			}
+		}).create();
+	}
+	
 	private void updateSentences()
 	{
 		//mSentenceListAdaper.clear();
