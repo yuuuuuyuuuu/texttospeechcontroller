@@ -28,9 +28,9 @@ public class StatusController {
 		mTextViewRegisteredCandidateNumber.setText(String.valueOf(num) + " registered");
 	}
 	
-	public void SetTtsEngineInfo(EngineInfo info)
+	public void SetSpeechEngineInfo(String info)
 	{
-		mTextViewTTS.setText(info.name);
+		mTextViewTTS.setText(info);
 	}
 	
 	public void SetLanguageInfo(Locale locale)

@@ -25,6 +25,13 @@ public class SpeechEngineInformation implements OnInitListener {
 		return mTextToSpeechWrapper.GetEngineInfo();
 	}
 	
+	public String GetCurrentEngine()
+	{
+		if(null == mTextToSpeechWrapper) return "Can't get Engine";
+		
+		return mTextToSpeechWrapper.GetCurrentEngine();
+	}
+	
 	@Override
 	public void onInit(int arg0) {
 		// TODO Auto-generated method stub

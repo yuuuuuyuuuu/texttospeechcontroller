@@ -15,6 +15,7 @@ public class TextToSpeechWrapper implements OnInitListener {
 	private static boolean mIsReadyForSpeech = false;
 	
 	private Context mContext = null;
+	private EngineInfo mEngineInfo = null;
 	
 	public TextToSpeechWrapper(Context context)
 	{
@@ -27,6 +28,13 @@ public class TextToSpeechWrapper implements OnInitListener {
 	public TextToSpeech GetTextToSpeech()
 	{
 		return mTextToSpeech;
+	}
+	
+	public String GetCurrentEngine()
+	{
+		if(null == mTextToSpeech) return "Can't get Engine";
+		
+		return mTextToSpeech.getDefaultEngine();
 	}
 	
 	public boolean IsReadyForSpeech()

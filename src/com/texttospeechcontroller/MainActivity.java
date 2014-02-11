@@ -36,6 +36,7 @@ import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity implements OnClickListener, OnShowListener, android.content.DialogInterface.OnClickListener, OnItemClickListener {
 
@@ -63,6 +64,7 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 	private AlertDialog mLanguageSelectDialog = null;
 	
 	private AlertDialog mSpeechEngineSelectDialog = null;
+	private int mSpeechEngineIndex = -1;
 	
 	private TextToSpeechController mTextToSpeechController = null;
 	private SpeechEngineInformation mSpeechEngineInformation = null;
@@ -110,6 +112,7 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 	{
 		mStatusController.SetCandidateNumInfo(mCandidateAdapter.GetCandidatesNum());
 		mStatusController.SetLanguageInfo(mTextToSpeechController.GetCurrentLanguage());
+		mStatusController.SetSpeechEngineInfo(mSpeechEngineInformation.GetCurrentEngine());
 	}
 
 	private void initViews()
@@ -320,16 +323,31 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 		.setTitle(R.string.dialog_label_select_engine)
 		.setSingleChoiceItems(mSpeechEngineInfoSelection, 0, new DialogInterface.OnClickListener() {		
 			@Override
-			public void onClick(DialogInterface arg0, int arg1) {
-				// TODO Auto-generated method stub
-						
+			public void onClick(DialogInterface arg0, int which) {
+				
+				mSpeechEngineIndex = which;
+				
 			}
 		})
 		.setPositiveButton(R.string.dialog_language_ok, new DialogInterface.OnClickListener() {		
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				// TODO Auto-generated method stub
+				
+				boolean result = false;
+				if(-1 != mSpeechEngineIndex)
+				{
+				    List<EngineInfo> engineInfoList = mSpeechEngineInformation.GetAvailableEngines();
+				    result = mTextToSpeechController.SetEngine(engineInfoList.get(mSpeechEngineIndex));
+				}
+				
+				if(!result)
+				{
+					Toast.makeText(MainActivity.this, "Failed to set new TTS engine", Toast.LENGTH_SHORT).show();
+				}
+				
 				dialog.cancel();
+				
 			}
 		}).create();
 	}

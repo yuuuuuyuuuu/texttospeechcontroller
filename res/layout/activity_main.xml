@@ -53,8 +53,7 @@
                 <LinearLayout
                     android:id="@+id/linearLayoutTtsEngine"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/common_margin_line" >
+                    android:layout_height="0dp" >
 
                     <Button
                         android:id="@+id/buttonSetSpeechEngine"
