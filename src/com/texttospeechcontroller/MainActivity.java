@@ -44,7 +44,12 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 	private Button mButtonSpeak = null;
 	private Button mButtonSetLanguage = null;
 	
-
+	private TextView mTextViewCandidateNumber = null;
+	private TextView mTextViewCurrentEngine = null;
+	private TextView mTextViewCurrentLanguage = null;
+	
+	private StatusController mStatusController = null;
+	
 	private ListView mSentenceListView = null;
 	private ArrayAdapter<String> mSentenceListAdaper = null;
 	private CandidateListViewAdapter mCandidateAdapter = null;
@@ -93,6 +98,11 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 		
 	}
 
+	private void updateStatus()
+	{
+		mStatusController.SetCandidateNumInfo(mCandidateAdapter.GetCandidatesNum());
+		//mStatusController.SetLanguageInfo(mTe)
+	}
 
 	private void initViews()
 	{
@@ -190,6 +200,11 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 				// TODO: implement delete process
 			}
 		}).create();
+		
+		mTextViewCandidateNumber = (TextView)findViewById(R.id.textViewCurrentCandidatesNumber);
+		mTextViewCurrentEngine = (TextView)findViewById(R.id.textviewCurrentEngine);
+		mTextViewCurrentLanguage = (TextView)findViewById(R.id.textViewLanguageSetting);
+		mStatusController = new StatusController(this, mTextViewCandidateNumber, mTextViewCurrentEngine, mTextViewCurrentLanguage);
 	}
 
 	private ArrayList<String> getSelectedSentences()
@@ -331,6 +346,8 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 		updateSentences();
 		
 		updateLocaleLabel();
+		
+		updateStatus();
 	}
 	private void updateLocaleLabel() {
 		

@@ -92,6 +92,11 @@ public class CandidateListViewAdapter extends ArrayAdapter<CandidateInfo> {
 		
 	}
 	
+	public int GetCandidatesNum()
+	{
+		return mItemList.size();
+	}
+	
 	private void setupItem(CandidateInfoHolder mCandidateHolder, int position) {
 		
 		mCandidateHolder.mTextViewId.setText(String.valueOf(position));
