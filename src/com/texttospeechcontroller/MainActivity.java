@@ -42,6 +42,8 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 	private Button mButtonAddCandidate = null;
 	private Button mButtonDeleteCandidate = null;
 	private Button mButtonSpeak = null;
+	private Button mButtonSetLanguage = null;
+	
 
 	private ListView mSentenceListView = null;
 	private ArrayAdapter<String> mSentenceListAdaper = null;
@@ -91,29 +93,6 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 		
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-	
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item)
-	{
-		
-		switch(item.getItemId())
-		{
-		    case R.id.menu_language:
-			showLanguageSelectDialog();
-			break; 	
-			
-			default:
-				break;
-		}
-		return super.onOptionsItemSelected(item);
-		
-	}
 
 	private void initViews()
 	{
@@ -123,6 +102,9 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 		
 		// mButtonDeleteCandidate = (Button)findViewById(R.id.buttonDeleteCandidate);
 		// mButtonDeleteCandidate.setOnClickListener(this);
+		
+		mButtonSetLanguage = (Button)findViewById(R.id.buttonSetLanguage);
+		mButtonSetLanguage.setOnClickListener(this);
 		
 		// TODO: implement handler
 		
@@ -245,6 +227,11 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 				// show dialog for addition
 				showAddCandidateDialog();
 				
+			}
+			else if(clickedButton == mButtonSetLanguage)
+			{
+				// show dialog for language setting
+				showLanguageSelectDialog();
 			}
 			else
 			{

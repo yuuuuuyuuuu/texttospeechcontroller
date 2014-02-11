@@ -88,7 +88,7 @@
                     android:orientation="horizontal" >
 
                     <Button
-                        android:id="@+id/buttonNextLangLeft"
+                        android:id="@+id/buttonSetLanguage"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="0.7"
