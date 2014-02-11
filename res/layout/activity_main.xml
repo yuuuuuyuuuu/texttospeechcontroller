@@ -20,8 +20,7 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/common_margin_large"
-            android:background="@color/color_background_white" >
+            android:layout_marginTop="@dimen/common_margin_large" >
 
             <TextView
                 android:id="@+id/textViewLabelCandidate"
@@ -29,95 +28,91 @@
                 android:layout_height="wrap_content"
                 android:text="@string/label_candidates" />
 
-            <ListView
-                android:id="@+id/listViewCandidates"
+            <LinearLayout
+                android:id="@+id/linearLayoutController"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@id/textViewLabelCandidate" >
-
-            </ListView>
-
-            <ImageButton
-                android:id="@+id/buttonAddCandidate"
-                android:layout_width="@dimen/add_button_width"
-                android:layout_height="@dimen/add_button_height"
-                android:layout_below="@id/listViewCandidates"
-                android:layout_centerInParent="true"
-                android:layout_marginRight="@dimen/common_margin_small"
-                android:background="@drawable/base_bottom_rounded"
-                android:src="@drawable/ic_action_new" />
-
-            <Button
-                android:id="@+id/buttonExecuteTextToSpeech"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/texttospeech_button_height"
+                android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:background="@drawable/button_background_pink"
-                android:gravity="center_vertical|center_horizontal"
-                android:text="@string/label_execute"
-                android:textColor="@color/color_white_basic_text"
-                android:textSize="@dimen/textsize_medium"
-                android:textStyle="bold" />
+                android:background="@color/color_background_gray"
+                android:orientation="vertical" >
 
-            <LinearLayout
-                android:id="@+id/linearLayoutLanguage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_above="@id/buttonExecuteTextToSpeech"
-                android:background="@color/color_background_very_pale_pink"
-                android:gravity="center_horizontal" >
-
-                <Button
-                    android:id="@+id/buttonNextLangLeft"
-                    android:layout_width="@dimen/button_left_right_arrow_width"
-                    android:layout_height="@dimen/button_left_right_arrow_height"
-                    android:background="@drawable/arrow_left_pink" />
-
-                <TextView
-                    android:id="@+id/textViewCurrentLang"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/linearLayoutAddNew"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/textview_current_language_horizontal_margin"
-                    android:layout_marginRight="@dimen/textview_current_language_horizontal_margin"
-                    android:text="Japanese"
-                    android:textColor="@color/color_background_bright_pink"
-                    android:textColorHint="@color/color_background_bright_pink"
-                    android:textSize="@dimen/textsize_small" />
+                    android:layout_marginBottom="@dimen/common_margin_line"
+                    android:gravity="center_vertical|center_horizontal" >
 
-                <Button
-                    android:id="@+id/buttonNextLangRIght"
-                    android:layout_width="@dimen/button_left_right_arrow_width"
-                    android:layout_height="@dimen/button_left_right_arrow_height"
-                    android:background="@drawable/arrow_right_pink" />
-            </LinearLayout>
+                    <Button
+                        android:id="@+id/buttonAddNew"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/add_button_height"
+                        android:background="@drawable/button_background_pale_pink"
+                        android:text="@string/label_add"
+                        android:textColor="@color/color_background_bright_pink" />
+                </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/linearLayoutAddNew"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_above="@id/linearLayoutLanguage"
-                android:gravity="center_vertical|center_horizontal" >
-
-                <Button
-                    android:id="@+id/buttonAddNewCandidate"
+                <LinearLayout
+                    android:id="@+id/linearLayoutLanguage"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/add_button_height"
+                    android:layout_marginBottom="@dimen/common_margin_line"
                     android:background="@drawable/button_background_pale_pink"
-                    android:text="@string/label_add"
-                    android:textColor="@color/color_background_bright_pink" />
+                    android:gravity="center_vertical|center_horizontal" >
+
+                    <Button
+                        android:id="@+id/buttonNextLangLeft"
+                        android:layout_width="@dimen/button_left_right_arrow_width"
+                        android:layout_height="@dimen/button_left_right_arrow_height"
+                        android:background="@drawable/arrow_left_pink" />
+
+                    <TextView
+                        android:id="@+id/textViewCurrentLang"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/textview_current_language_horizontal_margin"
+                        android:layout_marginRight="@dimen/textview_current_language_horizontal_margin"
+                        android:text="Japanese"
+                        android:textColor="@color/color_background_bright_pink"
+                        android:textColorHint="@color/color_background_bright_pink"
+                        android:textSize="@dimen/textsize_small" />
+
+                    <Button
+                        android:id="@+id/buttonNextLangRIght"
+                        android:layout_width="@dimen/button_left_right_arrow_width"
+                        android:layout_height="@dimen/button_left_right_arrow_height"
+                        android:background="@drawable/arrow_right_pink" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/buttonExecuteTextToSpeech"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/texttospeech_button_height"
+                    android:background="@drawable/button_background_pale_pink"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:text="@string/label_execute"
+                    android:textColor="@color/color_white_basic_text"
+                    android:textSize="@dimen/textsize_medium"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/linearLayoutCandidatesListview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/linearLayoutController"
+                android:orientation="vertical" >
+
+                <ListView
+                    android:id="@+id/listViewCandidate"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" >
+                </ListView>
+            </LinearLayout>
         </RelativeLayout>
 
     </FrameLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="top"
-        android:orientation="vertical" >
-
-    </LinearLayout>
 
 </RelativeLayout>

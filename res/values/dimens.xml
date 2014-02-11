@@ -15,6 +15,7 @@
     <dimen name="common_margin_midium">20dp</dimen>
     <dimen name="common_margin_large">30dp</dimen>
     <dimen name="common_margin_xlarge">40dp</dimen>
+    <dimen name="common_margin_line">1dp</dimen>
     <dimen name="common_icon_size_small">20dp</dimen>
     <dimen name="common_icon_size_midium">30dp</dimen>
     <dimen name="common_icon_size_large">40dp</dimen>
@@ -46,6 +47,10 @@
     <color name="color_background_very_pale_pink">#E6FADCE9</color>
     <color name="color_background_white">#FFFFFF</color>
     <color name="color_background_transparent">#00FFFFFF</color>
+    <color name="color_background_gray">#666666</color>
+    <color name="color_background_dark_gray">#323232</color>
+    <color name="color_background_black">#000000</color>
+    <color name="color_background_light_gray">#b2b2b2</color>
     
 
 </resources>

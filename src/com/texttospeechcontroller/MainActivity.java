@@ -39,7 +39,7 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 
 	private final String TAG = "MainActivity";
 	
-	private ImageButton mButtonAddCandidate = null;
+	private Button mButtonAddCandidate = null;
 	private Button mButtonDeleteCandidate = null;
 	private Button mButtonSpeak = null;
 
@@ -120,7 +120,7 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 	private void initViews()
 	{
 		
-		mButtonAddCandidate = (ImageButton)findViewById(R.id.buttonAddCandidate);
+		mButtonAddCandidate = (Button)findViewById(R.id.buttonAddNew);
 		mButtonAddCandidate.setOnClickListener(this);
 		
 		// mButtonDeleteCandidate = (Button)findViewById(R.id.buttonDeleteCandidate);
@@ -134,7 +134,7 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 		mTextViewHeader = (TextView)findViewById(R.id.textViewHeader);
 		
 		// List
-		mSentenceListView = (ListView)findViewById(R.id.listViewCandidates);
+		mSentenceListView = (ListView)findViewById(R.id.listViewCandidate);
 		mSentenceListAdaper = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
 		// mSentenceListView.setAdapter(mSentenceListAdaper);
 		
@@ -244,6 +244,12 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 			{
 				mTextToSpeechController.Speak(getSelectedSentences(), 100);
 			}
+			else if(clickedButton == mButtonAddCandidate)
+			{
+				// show dialog for addition
+				showAddCandidateDialog();
+				
+			}
 			else
 			{
 				assert(false);
@@ -251,14 +257,7 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 		}
 		else if(v instanceof ImageButton)
 		{
-            ImageButton clickedImageButton = (ImageButton)v;
-			
-			if(clickedImageButton == mButtonAddCandidate)
-			{
-				// show dialog for addition
-				showAddCandidateDialog();
-				
-			}
+            assert(false);
 		}
 	}
 	
