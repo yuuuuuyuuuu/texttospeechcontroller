@@ -101,7 +101,7 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 	private void updateStatus()
 	{
 		mStatusController.SetCandidateNumInfo(mCandidateAdapter.GetCandidatesNum());
-		//mStatusController.SetLanguageInfo(mTe)
+		mStatusController.SetLanguageInfo(mTextToSpeechController.GetCurrentLanguage());
 	}
 
 	private void initViews()
@@ -147,7 +147,7 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 		mAddCandidateDialog.setOnShowListener(this);
 		
 		// Language
-		Locale currentLocale = mTextToSpeechController.GetLocale();
+		Locale currentLocale = mTextToSpeechController.GetCurrentLanguage();
 		int defaultSelection = 0;
 		if(currentLocale == Locale.ENGLISH)
 		{
@@ -179,7 +179,8 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 						break;
 				}
 				
-				updateLocaleLabel();
+				updateStatus();
+				
 			}
 		})
 		.setPositiveButton(R.string.dialog_language_ok, new DialogInterface.OnClickListener() {
@@ -351,7 +352,7 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 	}
 	private void updateLocaleLabel() {
 		
-		Locale currentLocale = mTextToSpeechController.GetLocale();
+		Locale currentLocale = mTextToSpeechController.GetCurrentLanguage();
 		if(null == currentLocale) return;
 		
 		//mTextViewHeader.setText("Language: " + currentLocale.getLanguage());

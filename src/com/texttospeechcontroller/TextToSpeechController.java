@@ -30,7 +30,7 @@ public class TextToSpeechController {
 		boolean supportStatus = mTextToSpeechWrapper.SetLanguage(locale);
 	}
 	
-	public Locale GetLocale()
+	public Locale GetCurrentLanguage()
 	{
 		return mTextToSpeechWrapper.GetCurrentLanguage();
 	}
