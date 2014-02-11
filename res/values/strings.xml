@@ -22,5 +22,6 @@
     <string name="label_set_language">Set Language</string>
     <string name="label_set_speech_engine">Set Speech Engine</string>
     <string name="dialog_label_select_engine">Select Speech Engine</string>
+    <string name="label_default_not_set">-----</string>
 
 </resources>

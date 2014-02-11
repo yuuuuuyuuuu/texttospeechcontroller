@@ -43,7 +43,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/settings_background_pale_gray"
                         android:gravity="center"
-                        android:text="24 registered"
+                        android:text="@string/label_default_not_set"
                         android:textColor="@color/color_background_silver"
                         android:textSize="@dimen/textsize_xsmall"
                         android:textStyle="italic" />
@@ -102,7 +102,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/settings_background_pale_gray"
                         android:gravity="center"
-                        android:text="日本語"
+                        android:text="@string/label_default_not_set"
                         android:textColor="@color/color_background_silver"
                         android:textSize="@dimen/textsize_xsmall"
                         android:textStyle="italic" />
