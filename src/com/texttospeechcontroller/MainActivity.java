@@ -43,8 +43,6 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 	private Button mButtonDeleteCandidate = null;
 	private Button mButtonSpeak = null;
 
-	private TextView mTextViewHeader = null;
-	
 	private ListView mSentenceListView = null;
 	private ArrayAdapter<String> mSentenceListAdaper = null;
 	private CandidateListViewAdapter mCandidateAdapter = null;
@@ -130,8 +128,6 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 		
 		mButtonSpeak = (Button)findViewById(R.id.buttonExecuteTextToSpeech);
 		mButtonSpeak.setOnClickListener(this);
-		
-		mTextViewHeader = (TextView)findViewById(R.id.textViewHeader);
 		
 		// List
 		mSentenceListView = (ListView)findViewById(R.id.listViewCandidate);
@@ -354,7 +350,7 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 		Locale currentLocale = mTextToSpeechController.GetLocale();
 		if(null == currentLocale) return;
 		
-		mTextViewHeader.setText("Language: " + currentLocale.getLanguage());
+		//mTextViewHeader.setText("Language: " + currentLocale.getLanguage());
 		
 	}
 	private LoaderManager.LoaderCallbacks<Cursor> mCursorCallbacks = new LoaderCallbacks<Cursor>() {

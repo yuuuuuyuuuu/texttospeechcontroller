@@ -19,5 +19,7 @@
     <string name="menu_label_new_phrase">Add new phrase</string>
     <string name="dialog_delete_phrase_title">Delete this phrase ?</string>
     <string name="dialog_delete_phrase_delete">Delete</string>
+    <string name="label_set_language">Set Language</string>
+    <string name="label_set_speech_engine">Set Speech Engine</string>
 
 </resources>

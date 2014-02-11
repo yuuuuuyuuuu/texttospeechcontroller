@@ -8,32 +8,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
 
-        <TextView
-            android:id="@+id/textViewHeader"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/color_header_background"
-            android:text="TextView"
-            android:textColor="@color/color_header_text"
-            android:textSize="@dimen/textsize_small" />
-
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/common_margin_large" >
-
-            <TextView
-                android:id="@+id/textViewLabelCandidate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/label_candidates" />
+            android:layout_height="wrap_content" >
 
             <LinearLayout
                 android:id="@+id/linearLayoutController"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:background="@color/color_background_gray"
+                android:background="@color/color_background_light_gray"
                 android:orientation="vertical" >
 
                 <LinearLayout
@@ -41,15 +25,58 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/common_margin_line"
-                    android:gravity="center_vertical|center_horizontal" >
+                    android:orientation="horizontal" >
 
                     <Button
                         android:id="@+id/buttonAddNew"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/add_button_height"
+                        android:layout_weight="0.7"
                         android:background="@drawable/button_background_pale_pink"
                         android:text="@string/label_add"
                         android:textColor="@color/color_background_bright_pink" />
+
+                    <TextView
+                        android:id="@+id/textViewCurrentCandidatesNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/settings_background_pale_gray"
+                        android:gravity="center"
+                        android:text="24 registered"
+                        android:textColor="@color/color_background_silver"
+                        android:textSize="@dimen/textsize_xsmall"
+                        android:textStyle="italic" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutTtsEngine"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/common_margin_line" >
+
+                    <Button
+                        android:id="@+id/buttonSetSpeechEngine"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/add_button_height"
+                        android:layout_weight="0.7"
+                        android:background="@drawable/button_background_pale_pink"
+                        android:text="@string/label_set_speech_engine"
+                        android:textColor="@color/color_background_bright_pink" />
+
+                    <TextView
+                        android:id="@+id/textviewCurrentEngine"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/settings_background_pale_gray"
+                        android:gravity="center"
+                        android:text="Google TTS"
+                        android:textColor="@color/color_background_silver"
+                        android:textSize="@dimen/textsize_xsmall"
+                        android:textStyle="italic" />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -57,31 +84,30 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/add_button_height"
                     android:layout_marginBottom="@dimen/common_margin_line"
-                    android:background="@drawable/button_background_pale_pink"
-                    android:gravity="center_vertical|center_horizontal" >
+                    android:gravity="center_vertical|center_horizontal"
+                    android:orientation="horizontal" >
 
                     <Button
                         android:id="@+id/buttonNextLangLeft"
-                        android:layout_width="@dimen/button_left_right_arrow_width"
-                        android:layout_height="@dimen/button_left_right_arrow_height"
-                        android:background="@drawable/arrow_left_pink" />
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.7"
+                        android:background="@drawable/button_background_pale_pink"
+                        android:text="@string/label_set_language"
+                        android:textColor="@color/color_background_bright_pink" />
 
                     <TextView
-                        android:id="@+id/textViewCurrentLang"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/textview_current_language_horizontal_margin"
-                        android:layout_marginRight="@dimen/textview_current_language_horizontal_margin"
-                        android:text="Japanese"
-                        android:textColor="@color/color_background_bright_pink"
-                        android:textColorHint="@color/color_background_bright_pink"
-                        android:textSize="@dimen/textsize_small" />
+                        android:id="@+id/textViewLanguageSetting"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/settings_background_pale_gray"
+                        android:gravity="center"
+                        android:text="日本語"
+                        android:textColor="@color/color_background_silver"
+                        android:textSize="@dimen/textsize_xsmall"
+                        android:textStyle="italic" />
 
-                    <Button
-                        android:id="@+id/buttonNextLangRIght"
-                        android:layout_width="@dimen/button_left_right_arrow_width"
-                        android:layout_height="@dimen/button_left_right_arrow_height"
-                        android:background="@drawable/arrow_right_pink" />
                 </LinearLayout>
 
                 <Button
@@ -91,7 +117,7 @@
                     android:background="@drawable/button_background_pale_pink"
                     android:gravity="center_vertical|center_horizontal"
                     android:text="@string/label_execute"
-                    android:textColor="@color/color_white_basic_text"
+                    android:textColor="@color/color_background_bright_pink"
                     android:textSize="@dimen/textsize_medium"
                     android:textStyle="bold" />
 
