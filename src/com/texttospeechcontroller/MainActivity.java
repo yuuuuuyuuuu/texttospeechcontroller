@@ -111,7 +111,9 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 	private void updateStatus()
 	{
 		mStatusController.SetCandidateNumInfo(mCandidateAdapter.GetCandidatesNum());
-		mStatusController.SetLanguageInfo(mTextToSpeechController.GetCurrentLanguage());
+		
+		Locale currentLocale = mTextToSpeechController.GetCurrentLanguage();
+		if(null != currentLocale) mStatusController.SetLanguageInfo(mTextToSpeechController.GetCurrentLanguage());
 		mStatusController.SetSpeechEngineInfo(mSpeechEngineInformation.GetCurrentEngine());
 	}
 

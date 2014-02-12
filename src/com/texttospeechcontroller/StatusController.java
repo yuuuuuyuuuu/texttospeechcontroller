@@ -25,16 +25,19 @@ public class StatusController {
 	
 	public void SetCandidateNumInfo(int num)
 	{
+		if(null == mTextViewRegisteredCandidateNumber) return;
 		mTextViewRegisteredCandidateNumber.setText(String.valueOf(num) + " registered");
 	}
 	
 	public void SetSpeechEngineInfo(String info)
 	{
+		if(null == mTextViewTTS) return;
 		mTextViewTTS.setText(info);
 	}
 	
 	public void SetLanguageInfo(Locale locale)
 	{
+		if(null == mTextViewLanguage) return;
 		mTextViewLanguage.setText(locale.getDisplayName());
 	}
 }

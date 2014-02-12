@@ -133,7 +133,11 @@
                     android:id="@+id/listViewCandidate"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1" >
+                    android:layout_weight="1"
+                    android:background="@drawable/button_background_very_pale_pink"
+                    android:divider="@color/color_background_light_gray"
+                    android:dividerHeight="1dp" >
+
                 </ListView>
             </LinearLayout>
         </RelativeLayout>
