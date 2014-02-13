@@ -17,4 +17,8 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
+    <style name="PinkCheckBox" parent="android:Widget.CompoundButton.CheckBox">
+		<item name="android:button">@drawable/pink_check_box</item>
+	</style>
+	
 </resources>

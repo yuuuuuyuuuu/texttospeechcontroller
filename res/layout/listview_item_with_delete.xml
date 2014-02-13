@@ -25,19 +25,26 @@
 
     </TextView>
     
-    <CheckBox android:id="@+id/checkBox_speak"
+    <CheckBox
+        android:id="@+id/checkBox_speak"
         android:layout_width="@dimen/listview_item_width_large"
         android:layout_height="@dimen/listview_item_height_large"
         android:layout_gravity="center_vertical"
-        android:maxHeight="@dimen/listview_item_height_large"
-        android:gravity="center_horizontal|center_vertical">
+        android:button="@drawable/pink_check_box"
+        android:checked="false"
+        android:gravity="center_horizontal|center_vertical"
+        android:maxHeight="@dimen/listview_item_height_large" >
+
     </CheckBox>
     
-    <ImageButton android:id="@+id/imagebutton_delete"
+    <ImageButton
+        android:id="@+id/imagebutton_delete"
         android:layout_width="@dimen/listview_item_width_large"
         android:layout_height="@dimen/listview_item_height_large"
         android:layout_gravity="center_vertical"
-        android:src="@drawable/ic_action_discard">    
+        android:background="@color/color_background_transparent"
+        android:src="@drawable/delete" >
+    
     </ImageButton>
 
 </LinearLayout>
