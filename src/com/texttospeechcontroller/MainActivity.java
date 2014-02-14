@@ -76,8 +76,9 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 	private static final Uri DB_URI = Uri.parse("content://com.texttospeechcontroller");
 	private static final String[] DB_COLUMNS = new String[]{"_id", "sentence"};
 	
-	private static final CharSequence[] LANGUAGE_DIALOG_SELECTION = new String[]{"English", "Japanese"};
-	private  CharSequence[] mSpeechEngineInfoSelection = new String[]{};
+	private List<Locale> mAvailableLocales = null;
+	private CharSequence[] mLanguageSelection = new String[]{"English", "Japanese"};
+	private CharSequence[] mSpeechEngineInfoSelection = new String[]{};
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -160,52 +161,6 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 		.setNegativeButton(R.string.dialog_label_add, this).create();
 		
 		mAddCandidateDialog.setOnShowListener(this);
-		
-		// Language
-		Locale currentLocale = mTextToSpeechController.GetCurrentLanguage();
-		int defaultSelection = 0;
-		if(currentLocale == Locale.ENGLISH)
-		{
-			
-		}
-		else if(currentLocale == Locale.JAPANESE)
-		{
-			defaultSelection = 1;
-		}
-		mLanguageSelectDialog = new AlertDialog.Builder(this)
-		.setTitle(R.string.dialog_language_title)
-		.setSingleChoiceItems(LANGUAGE_DIALOG_SELECTION, defaultSelection, new DialogInterface.OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				switch(which)
-				{
-				case 0:
-					// English
-					mTextToSpeechController.SetLocale(Locale.ENGLISH);
-					break;
-					
-				case 1:
-					// Japanese
-					mTextToSpeechController.SetLocale(Locale.JAPANESE);
-					break;
-					
-					default:
-						break;
-				}
-				
-				updateStatus();
-				
-			}
-		})
-		.setPositiveButton(R.string.dialog_language_ok, new DialogInterface.OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				// TODO Auto-generated method stub
-				dialog.cancel();
-			}
-		}).create();
 		
 		// Engine Selection Dialog
 		mSpeechEngineSelectDialog = new AlertDialog.Builder(this)
@@ -298,6 +253,7 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 
 	private void showLanguageSelectDialog()
 	{
+		createLanguageSelectDialog();
 		mLanguageSelectDialog.show();
 	}
 	
@@ -305,6 +261,49 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 	{
 		createSpeechEngineDialog();
 		mSpeechEngineSelectDialog.show();
+	}
+	
+	private void createLanguageSelectDialog()
+	{
+		mAvailableLocales = mSpeechEngineInformation.GetAvailableLocales();
+		
+		List<CharSequence> localeLabels = new ArrayList<CharSequence>();
+		
+		for(Locale locale : mAvailableLocales)
+		{
+			localeLabels.add(locale.getDisplayName());
+		}
+		
+		mLanguageSelection = localeLabels.toArray(new CharSequence[localeLabels.size()]);
+		
+		int selection = 0;
+		mLanguageSelectDialog = new AlertDialog.Builder(this)
+		.setTitle(R.string.dialog_language_title)
+		.setSingleChoiceItems(mLanguageSelection, selection, new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				
+				
+				if(which <= mAvailableLocales.size())
+				{
+					mTextToSpeechController.SetLocale(mAvailableLocales.get(which));
+				}
+				
+				
+				updateStatus();
+				
+			}
+		})
+		.setPositiveButton(R.string.dialog_language_ok, new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				dialog.cancel();
+			}
+		}).create();
+		
 	}
 	
 	private void createSpeechEngineDialog()
