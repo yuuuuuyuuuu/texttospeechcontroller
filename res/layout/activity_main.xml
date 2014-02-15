@@ -54,7 +54,8 @@
                 <LinearLayout
                     android:id="@+id/linearLayoutTtsEngine"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp" >
+                    android:layout_height="@dimen/add_button_height"
+                    android:layout_marginBottom="@dimen/common_margin_line" >
 
                     <Button
                         android:id="@+id/buttonSetSpeechEngine"

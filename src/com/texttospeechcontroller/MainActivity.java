@@ -76,6 +76,7 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 	private static final Uri DB_URI = Uri.parse("content://com.texttospeechcontroller");
 	private static final String[] DB_COLUMNS = new String[]{"_id", "sentence"};
 	
+	private List<EngineInfo> mEngineInfoList = null;
 	private List<Locale> mAvailableLocales = null;
 	private CharSequence[] mLanguageSelection = new String[]{"English", "Japanese"};
 	private CharSequence[] mSpeechEngineInfoSelection = new String[]{};
@@ -115,6 +116,8 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 		
 		Locale currentLocale = mTextToSpeechController.GetCurrentLanguage();
 		if(null != currentLocale) mStatusController.SetLanguageInfo(mTextToSpeechController.GetCurrentLanguage());
+		
+		String info = mSpeechEngineInformation.GetCurrentEngine();
 		mStatusController.SetSpeechEngineInfo(mSpeechEngineInformation.GetCurrentEngine());
 	}
 
@@ -308,13 +311,13 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 	
 	private void createSpeechEngineDialog()
 	{
-        List<EngineInfo> engineInfoList = mSpeechEngineInformation.GetAvailableEngines();
+        mEngineInfoList = mSpeechEngineInformation.GetAvailableEngines();
 		
 		List<String> infoList = new ArrayList<String>();
 		
-		for(int i = 0; i < engineInfoList.size(); i++)
+		for(int i = 0; i < mEngineInfoList.size(); i++)
 		{
-			infoList.add(engineInfoList.get(i).label);
+			infoList.add(mEngineInfoList.get(i).label);
 		}
 		
 		mSpeechEngineInfoSelection = infoList.toArray(new CharSequence[infoList.size()]);
@@ -338,8 +341,8 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 				boolean result = false;
 				if(-1 != mSpeechEngineIndex)
 				{
-				    List<EngineInfo> engineInfoList = mSpeechEngineInformation.GetAvailableEngines();
-				    result = mTextToSpeechController.SetEngine(engineInfoList.get(mSpeechEngineIndex));
+				    //List<EngineInfo> engineInfoList = mSpeechEngineInformation.GetAvailableEngines();
+				    result = mTextToSpeechController.SetEngine(mEngineInfoList.get(mSpeechEngineIndex));
 				}
 				
 				if(!result)
@@ -348,6 +351,8 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 				}
 				
 				dialog.cancel();
+				
+				updateStatus();
 				
 			}
 		}).create();

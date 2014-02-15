@@ -16,7 +16,7 @@ public class SpeechEngineInformation implements OnInitListener {
 	public SpeechEngineInformation(Context context)
 	{
 		this.mContext = context;
-		mTextToSpeechWrapper = new TextToSpeechWrapper(mContext);
+		mTextToSpeechWrapper = TextToSpeechWrapper.GetInstance(mContext);
 	}
 
 	public List<EngineInfo> GetAvailableEngines()

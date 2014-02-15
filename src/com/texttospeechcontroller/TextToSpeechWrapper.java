@@ -15,26 +15,37 @@ public class TextToSpeechWrapper implements OnInitListener {
 	private static boolean mIsReadyForSpeech = false;
 	
 	private Context mContext = null;
-	private EngineInfo mEngineInfo = null;
 	
-	public TextToSpeechWrapper(Context context)
+	private String mCurrentEngineInfo = null;
+	
+	private static TextToSpeechWrapper mTextToSpeechWrapper = null;
+	
+	private TextToSpeechWrapper(Context context)
 	{
 		mContext = context;
 		
 		if(null == mTextToSpeech) mTextToSpeech = new TextToSpeech(context, this);
 		
+		if(null == mCurrentEngineInfo) mCurrentEngineInfo = mTextToSpeech.getDefaultEngine();
+		
 	}
-
-	public TextToSpeech GetTextToSpeech()
+	
+	public static TextToSpeechWrapper GetInstance(Context context)
 	{
-		return mTextToSpeech;
+		if(null == mTextToSpeechWrapper) 
+		{
+			mTextToSpeechWrapper = new TextToSpeechWrapper(context);
+			//return new TextToSpeechWrapper(context);
+		}
+		
+		return mTextToSpeechWrapper;
 	}
 	
 	public String GetCurrentEngine()
 	{
 		if(null == mTextToSpeech) return "Can't get Engine";
 		
-		return mTextToSpeech.getDefaultEngine();
+		return mCurrentEngineInfo;
 	}
 	
 	public boolean IsReadyForSpeech()
@@ -98,7 +109,8 @@ public class TextToSpeechWrapper implements OnInitListener {
 		if(null == mTextToSpeech) return false;
 		
 		mIsReadyForSpeech = false;
-		mTextToSpeech = new TextToSpeech(mContext, this);
+		mTextToSpeech = new TextToSpeech(mContext, this, newEngineInfo.name);
+		mCurrentEngineInfo = newEngineInfo.name;
 		
 		return true;
 	}

@@ -12,6 +12,7 @@ public class TextToSpeechController {
 	
 	private Context mContext = null;
 	
+	
 	private TextToSpeechWrapper mTextToSpeechWrapper = null;
 	
 	public TextToSpeechController(Context context)
@@ -23,7 +24,7 @@ public class TextToSpeechController {
 	
 	private void init()
 	{
-		mTextToSpeechWrapper = new TextToSpeechWrapper(mContext);
+		mTextToSpeechWrapper = TextToSpeechWrapper.GetInstance(mContext);
 	}
 	
 	public void SetLocale(Locale locale)
