@@ -21,7 +21,8 @@ import android.widget.TextView;
 public class CandidateListViewAdapter extends ArrayAdapter<CandidateInfo> {
 
 	private static final Uri DB_URI = Uri.parse("content://com.texttospeechcontroller");
-	private static final String[] DB_COLUMNS = new String[]{"_id", "sentence"};
+	private static final String[] DB_COLUMNS = new String[]{"_id", "sentence", "selected"};
+	
 	
 	private Context mContext = null;
 	private int mResourceId = -1;
@@ -99,7 +100,7 @@ public class CandidateListViewAdapter extends ArrayAdapter<CandidateInfo> {
 	
 	private void setupItem(CandidateInfoHolder mCandidateHolder, int position) {
 		
-		mCandidateHolder.mTextViewId.setText(String.valueOf(position));
+		mCandidateHolder.mTextViewId.setText(String.valueOf(position + 1));
 		mCandidateHolder.mTextViewSentence.setText(mCandidateHolder.mCandidateInfo.getSentence());
 	}
 

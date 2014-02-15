@@ -152,19 +152,6 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 		
 		mSentenceListView.setOnItemClickListener(this);
 		
-		// New candidate dialog
-		LayoutInflater inflator = LayoutInflater.from(this);
-		View view = inflator.inflate(R.layout.add_dialog, null);
-		mTextViewAddDialog = (TextView)view.findViewById(R.id.editTextDialogNewCandidate);
-		
-		mAddCandidateDialog = new AlertDialog.Builder(this)
-		.setTitle(R.string.dialog_label_Add_New_Candidate)
-		.setView(view)
-		.setPositiveButton(R.string.dialog_label_cancel, null)
-		.setNegativeButton(R.string.dialog_label_add, this).create();
-		
-		mAddCandidateDialog.setOnShowListener(this);
-		
 		// Engine Selection Dialog
 		mSpeechEngineSelectDialog = new AlertDialog.Builder(this)
 		.setTitle(R.string.dialog_label_select_engine)
@@ -251,6 +238,7 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 	private void showAddCandidateDialog()
 	{
 		// show software keyboard
+		createAddNewCandidateDialog();
 		mAddCandidateDialog.show();
 	}
 
@@ -264,6 +252,22 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 	{
 		createSpeechEngineDialog();
 		mSpeechEngineSelectDialog.show();
+	}
+	
+	private void createAddNewCandidateDialog()
+	{
+		// New candidate dialog
+		LayoutInflater inflator = LayoutInflater.from(this);
+		View view = inflator.inflate(R.layout.add_dialog, null);
+		mTextViewAddDialog = (TextView)view.findViewById(R.id.editTextDialogNewCandidate);
+				
+		mAddCandidateDialog = new AlertDialog.Builder(this)
+		.setTitle(R.string.dialog_label_Add_New_Candidate)
+		.setView(view)
+		.setPositiveButton(R.string.dialog_label_cancel, null)
+		.setNegativeButton(R.string.dialog_label_add, this).create();
+				
+		mAddCandidateDialog.setOnShowListener(this);
 	}
 	
 	private void createLanguageSelectDialog()
@@ -360,7 +364,6 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 	
 	private void updateSentences()
 	{
-		//mSentenceListAdaper.clear();
 		mCandidateAdapter.clear();
 		
 		boolean result =  mDbCursor.moveToFirst();
@@ -420,6 +423,7 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 		String newCandidate = mTextViewAddDialog.getText().toString();
 		ContentValues cv = new ContentValues();
 		cv.put(DB_COLUMNS[1], newCandidate);
+		cv.put(DB_COLUMNS[2], 0);
 					
 		Uri result = getContentResolver().insert(DB_URI, cv);
 					
@@ -441,8 +445,6 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 		
 		Locale currentLocale = mTextToSpeechController.GetCurrentLanguage();
 		if(null == currentLocale) return;
-		
-		//mTextViewHeader.setText("Language: " + currentLocale.getLanguage());
 		
 	}
 	private LoaderManager.LoaderCallbacks<Cursor> mCursorCallbacks = new LoaderCallbacks<Cursor>() {

@@ -17,9 +17,9 @@ public class SentenceDbHelper extends ContentProvider {
 	// SQL
 	private static final String DB_NAME = "sentencelistdb";
 	private static final String TABLE_NAME = "sentencelisttable";
-	private static final String CREATE_TABLE_SQL = "create table " + TABLE_NAME + " ( _id integer primary key autoincrement, sentence text );";
+	private static final String CREATE_TABLE_SQL = "create table " + TABLE_NAME + " ( _id integer primary key autoincrement, sentence text , selected integer default 0);";
 	private static final String DROP_TABLE_SQL = "drop table " + TABLE_NAME + ";";
-	private static final String[] DB_COLUMNS = new String[]{"_id", "sentence"};
+	private static final String[] DB_COLUMNS = new String[]{"_id", "sentence", "selected"};
 	
 	@Override
 	public int delete(Uri uri, String selection, String[] selectionArgs) {
@@ -74,13 +74,18 @@ public class SentenceDbHelper extends ContentProvider {
 		return c;
 	}
 
+	
 	@Override
 	public int update(Uri uri, ContentValues values, String selection,
 			String[] selectionArgs) {
-		// TODO Auto-generated method stub
+		
+		SQLiteDatabase db = mDbOpenHelper.getWritableDatabase();
+		db.update(TABLE_NAME, values, selection, null);
+		
 		return 0;
 	}
-
+	
+	
 	private static class SentenceDatabaseOpenHelper extends SQLiteOpenHelper
 	{
 		

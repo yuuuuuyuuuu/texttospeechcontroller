@@ -9,9 +9,10 @@
         android:id="@+id/textview_listview_id"
         android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/common_margin_small"
         android:layout_weight="1"
         android:gravity="center_vertical"
-        android:textColor="@color/color_white_basic_text" >
+        android:textColor="@color/color_background_light_gray" >
 
     </TextView>
     

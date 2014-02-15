@@ -8,6 +8,7 @@ import android.content.Context;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.EngineInfo;
 import android.speech.tts.TextToSpeech.OnInitListener;
+import android.util.Log;
 
 public class TextToSpeechWrapper implements OnInitListener {
 
@@ -24,9 +25,26 @@ public class TextToSpeechWrapper implements OnInitListener {
 	{
 		mContext = context;
 		
-		if(null == mTextToSpeech) mTextToSpeech = new TextToSpeech(context, this);
+		if(null == mTextToSpeech)
+		{
+			
+			mTextToSpeech = new TextToSpeech(context, this);
+		}
 		
-		if(null == mCurrentEngineInfo) mCurrentEngineInfo = mTextToSpeech.getDefaultEngine();
+		if(null == mCurrentEngineInfo) 
+		{
+			String currentEngineName = mTextToSpeech.getDefaultEngine();
+			List<EngineInfo> engines = mTextToSpeech.getEngines();
+			
+			for(EngineInfo info : engines)
+			{
+				if(info.name.equals(currentEngineName))
+				{
+					this.SetEngine(info);
+					break;
+				}
+			}
+		}
 		
 	}
 	
@@ -35,7 +53,7 @@ public class TextToSpeechWrapper implements OnInitListener {
 		if(null == mTextToSpeechWrapper) 
 		{
 			mTextToSpeechWrapper = new TextToSpeechWrapper(context);
-			//return new TextToSpeechWrapper(context);
+			
 		}
 		
 		return mTextToSpeechWrapper;
@@ -81,7 +99,7 @@ public class TextToSpeechWrapper implements OnInitListener {
 		if(null == mTextToSpeech) return false;
 		
 		int result = mTextToSpeech.isLanguageAvailable(locale);
-		
+		Log.d("Wrapper", String.valueOf(result));
 		if((result == TextToSpeech.LANG_MISSING_DATA) || (result == TextToSpeech.LANG_NOT_SUPPORTED))
 		{
 			return false;
@@ -110,7 +128,7 @@ public class TextToSpeechWrapper implements OnInitListener {
 		
 		mIsReadyForSpeech = false;
 		mTextToSpeech = new TextToSpeech(mContext, this, newEngineInfo.name);
-		mCurrentEngineInfo = newEngineInfo.name;
+		mCurrentEngineInfo = newEngineInfo.label;
 		
 		return true;
 	}
