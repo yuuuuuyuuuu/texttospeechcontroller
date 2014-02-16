@@ -57,13 +57,13 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 	private StatusController mStatusController = null;
 	
 	private ListView mSentenceListView = null;
-	private ArrayAdapter<String> mSentenceListAdaper = null;
 	private CandidateListViewAdapter mCandidateAdapter = null;
 	
 	private AlertDialog mAddCandidateDialog = null;
 	private TextView mTextViewAddDialog = null;
 	
 	private AlertDialog mLanguageSelectDialog = null;
+	private int mLanguageSelectionIndex = -1;
 	
 	private AlertDialog mSpeechEngineSelectDialog = null;
 	private int mSpeechEngineIndex = -1;
@@ -76,7 +76,6 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 	private PreferenceController mPreferenceController = null;
 	
 	private static final Uri DB_URI = Uri.parse("content://com.texttospeechcontroller");
-	// private static final String[] DB_COLUMNS = new String[]{"_id", "sentence"};
 	private static final String[] DB_COLUMNS = new String[]{"_id", "sentence", "selected"};
 	
 	private List<EngineInfo> mEngineInfoList = null;
@@ -115,15 +114,29 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 
 	private void updateStatus()
 	{
-		mStatusController.SetCandidateNumInfo(mCandidateAdapter.GetCandidatesNum());
-		
-		Locale currentLocale = mTextToSpeechController.GetCurrentLanguage();
-		if(null != currentLocale) mStatusController.SetLanguageInfo(mTextToSpeechController.GetCurrentLanguage());
-		
+		updateCandidateNumberStatus();
+		updateEngineStatus();
+		updateLanguageStatus();
+	}
+
+	private void updateEngineStatus()
+	{
 		String info = mSpeechEngineInformation.GetCurrentEngine();
 		mStatusController.SetSpeechEngineInfo(mSpeechEngineInformation.GetCurrentEngine());
 	}
-
+	
+	private void updateLanguageStatus()
+	{
+		Locale currentLocale = mTextToSpeechController.GetCurrentLanguage();
+		if(null != currentLocale) mStatusController.SetLanguageInfo(mTextToSpeechController.GetCurrentLanguage());
+		else mStatusController.SetLanguageInfo(null);
+	}
+	
+	private void updateCandidateNumberStatus()
+	{
+		mStatusController.SetCandidateNumInfo(mCandidateAdapter.GetCandidatesNum());
+	}
+	
 	private void initViews()
 	{
 		
@@ -143,32 +156,9 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 		
 		// List
 		mSentenceListView = (ListView)findViewById(R.id.listViewCandidate);
-		mSentenceListAdaper = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
-		// mSentenceListView.setAdapter(mSentenceListAdaper);
-		
 		ArrayList<CandidateInfo> candidateList = new ArrayList<CandidateInfo>();
 		mCandidateAdapter = new CandidateListViewAdapter(this, R.layout.listview_item_with_delete, candidateList);
 		mSentenceListView.setAdapter(mCandidateAdapter);
-		
-		// Engine Selection Dialog
-		mSpeechEngineSelectDialog = new AlertDialog.Builder(this)
-		.setTitle(R.string.dialog_label_select_engine)
-		.setSingleChoiceItems(mSpeechEngineInfoSelection, 0, new DialogInterface.OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface arg0, int arg1) {
-				// TODO Auto-generated method stub
-				
-			}
-		})
-		.setPositiveButton(R.string.dialog_language_ok, new DialogInterface.OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				// TODO Auto-generated method stub
-				dialog.cancel();
-			}
-		}).create();
 		
 		mTextViewCandidateNumber = (TextView)findViewById(R.id.textViewCurrentCandidatesNumber);
 		mTextViewCurrentEngine = (TextView)findViewById(R.id.textviewCurrentEngine);
@@ -282,6 +272,7 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 		mLanguageSelection = localeLabels.toArray(new CharSequence[localeLabels.size()]);
 		
 		int selection = 0;
+		mLanguageSelectionIndex = selection;
 		mLanguageSelectDialog = new AlertDialog.Builder(this)
 		.setTitle(R.string.dialog_language_title)
 		.setSingleChoiceItems(mLanguageSelection, selection, new DialogInterface.OnClickListener() {
@@ -289,14 +280,7 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				
-				
-				if(which <= mAvailableLocales.size())
-				{
-					mTextToSpeechController.SetLocale(mAvailableLocales.get(which));
-				}
-				
-				
-				updateStatus();
+				mLanguageSelectionIndex = which;
 				
 			}
 		})
@@ -304,8 +288,15 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 			
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				// TODO Auto-generated method stub
-				dialog.cancel();
+				
+				if(mLanguageSelectionIndex <= mAvailableLocales.size())
+				{
+					mTextToSpeechController.SetLocale(mAvailableLocales.get(mLanguageSelectionIndex));
+				}
+				
+                dialog.cancel();
+				
+				updateStatus();
 			}
 		}).create();
 		
@@ -362,9 +353,6 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 	
 	private void updateSentences()
 	{
-		Log.d(TAG, "updateSenteces start");
-		long startTime = System.currentTimeMillis();
-		
 		mCandidateAdapter.clear();
 		
 		boolean result =  mDbCursor.moveToFirst();
@@ -386,8 +374,6 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 			
 		}while(mDbCursor.moveToNext());
 		
-		Log.d(TAG, "updateSenteces end");
-		Log.d(TAG, "time: " + String.valueOf(System.currentTimeMillis() - startTime));
 	}
 	
 	@Override

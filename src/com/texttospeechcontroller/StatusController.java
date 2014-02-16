@@ -37,7 +37,17 @@ public class StatusController {
 	
 	public void SetLanguageInfo(Locale locale)
 	{
-		if(null == mTextViewLanguage) return;
+		if(null == mTextViewLanguage) 
+		{
+			return;	
+		}
+		
+		if(null == locale)
+		{
+			mTextViewLanguage.setText("-----");
+			return;
+		}
+		
 		mTextViewLanguage.setText(locale.getDisplayName());
 	}
 }
