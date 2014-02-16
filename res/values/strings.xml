@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">TextToSpeechController</string>
+    <string name="app_name">LDT: Let your Device Talk</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="label_candidates">Candidates</string>
@@ -23,5 +23,7 @@
     <string name="label_set_speech_engine">Set Speech Engine</string>
     <string name="dialog_label_select_engine">Select Speech Engine</string>
     <string name="label_default_not_set">-----</string>
+    <string name="label_initial_dialog_title">Hello, mate !</string>
+    <string name="label_initial_dialog_explanation">Thank you for using this app! Heres just a quick guide.</string>
 
 </resources>

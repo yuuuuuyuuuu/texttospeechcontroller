@@ -59,6 +59,8 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 	private ListView mSentenceListView = null;
 	private CandidateListViewAdapter mCandidateAdapter = null;
 	
+	private AlertDialog mInitialExplanationDialog = null;
+	
 	private AlertDialog mAddCandidateDialog = null;
 	private TextView mTextViewAddDialog = null;
 	
@@ -88,7 +90,7 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 		super.onCreate(savedInstanceState);
 		
 		// Window settings
-		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		// this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 				
 		setContentView(R.layout.activity_main);
 		
@@ -109,7 +111,40 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 		// Preferences
 		mPreferenceController = new PreferenceController(this);
 		
+		boolean isFirstLaunch = mPreferenceController.getInitialLaunchSetting();
+		if(isFirstLaunch)
+		{
+			// fill with default sentences
+			fillDefaultCandidates();
+			
+			// Set initial launch flag off
+			mPreferenceController.setInitialLaunchSetting(false);
+			
+			// show initial explanation flag
+			createInitialExplanationDialog();
+			mInitialExplanationDialog.show();
+		}
+		else
+		{
+			
+		}
 		
+	}
+
+	private void fillDefaultCandidates() {
+		
+		String[] defaultEnglishSentences = new String[]{"Hello mate.", "It is exactly what I want.", "I am text-to-speech engine. You can download other engines for various languages. Also you can set your favorite language to speak."};
+		String[] defaultJapaneseSentences = new String[]{"こんにちわ、みなさん", "電車で旅に出ます。", "スピーチエンジンです。エンジンはダウンロードできます。言語は変えられます。"};
+		
+		for(String sentence : defaultEnglishSentences)
+		{
+			insertSentence(sentence);
+		}
+		
+		for(String sentence : defaultJapaneseSentences)
+		{
+			insertSentence(sentence);
+		}
 	}
 
 	private void updateStatus()
@@ -222,6 +257,16 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 		}
 	}
 	
+	private void createInitialExplanationDialog()
+	{
+				
+		mInitialExplanationDialog = new AlertDialog.Builder(this)
+		.setTitle(R.string.label_initial_dialog_title)
+		.setMessage(R.string.label_initial_dialog_explanation)
+		
+		.setPositiveButton(R.string.dialog_language_ok, null).create();
+		
+	}
 	
 	private void showAddCandidateDialog()
 	{
@@ -397,7 +442,8 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 			
 		case DialogInterface.BUTTON_NEGATIVE:
 			// Add
-			insertSentence();
+			String newCandidate = mTextViewAddDialog.getText().toString();
+			insertSentence(newCandidate);
 			break;
 			
 		default:
@@ -407,12 +453,11 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 		}
 	}
 
-	private void insertSentence()
+	private void insertSentence(String sentence)
 	{
 		// Insert to database
-		String newCandidate = mTextViewAddDialog.getText().toString();
 		ContentValues cv = new ContentValues();
-		cv.put(DB_COLUMNS[1], newCandidate);
+		cv.put(DB_COLUMNS[1], sentence);
 					
 		Uri result = getContentResolver().insert(DB_URI, cv);
 					

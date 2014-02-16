@@ -26,7 +26,7 @@ public class PreferenceController {
 	{
 		if(null == mSharedPreferences) return;
 		
-		Log.d(TAG, newLocale.toString());
+		// Log.d(TAG, newLocale.toString());
 		
 		Editor editor = mSharedPreferences.edit();
 		editor.putString(PreferenceKeys.PREFERENCE_KEY_CURRENT_LOCALE, newLocale.toString());
@@ -40,8 +40,21 @@ public class PreferenceController {
 		
 		Locale currentLocale = new Locale(mSharedPreferences.getString(PreferenceKeys.PREFERENCE_KEY_CURRENT_LOCALE, Locale.ENGLISH.toString()));
 		
-		Log.d(TAG, currentLocale.toString());
+		// Log.d(TAG, currentLocale.toString());
 		
 		return currentLocale;
+	}
+	
+	public void setInitialLaunchSetting(boolean isInitial)
+	{
+
+		Editor editor = mSharedPreferences.edit();
+		editor.putBoolean(PreferenceKeys.PREFERENCE_KEY_INITIAL_LAUNCH, isInitial);
+		editor.commit();
+	}
+	
+	public boolean getInitialLaunchSetting()
+	{
+		return mSharedPreferences.getBoolean(PreferenceKeys.PREFERENCE_KEY_INITIAL_LAUNCH, true);
 	}
 }
