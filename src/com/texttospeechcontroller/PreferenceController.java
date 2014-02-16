@@ -1,13 +1,11 @@
 package com.texttospeechcontroller;
 
-import java.util.Currency;
 import java.util.Locale;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 public class PreferenceController {
 
@@ -26,8 +24,6 @@ public class PreferenceController {
 	{
 		if(null == mSharedPreferences) return;
 		
-		// Log.d(TAG, newLocale.toString());
-		
 		Editor editor = mSharedPreferences.edit();
 		editor.putString(PreferenceKeys.PREFERENCE_KEY_CURRENT_LOCALE, newLocale.toString());
 		editor.commit();
@@ -39,8 +35,6 @@ public class PreferenceController {
 		if(null == mSharedPreferences) return null;
 		
 		Locale currentLocale = new Locale(mSharedPreferences.getString(PreferenceKeys.PREFERENCE_KEY_CURRENT_LOCALE, Locale.ENGLISH.toString()));
-		
-		// Log.d(TAG, currentLocale.toString());
 		
 		return currentLocale;
 	}

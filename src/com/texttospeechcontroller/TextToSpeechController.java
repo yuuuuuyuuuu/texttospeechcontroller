@@ -6,7 +6,6 @@ import java.util.Locale;
 import android.content.Context;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.EngineInfo;
-import android.speech.tts.TextToSpeech.OnInitListener;
 
 public class TextToSpeechController {
 	

@@ -6,7 +6,6 @@ import java.util.Locale;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.LoaderManager;
@@ -17,24 +16,15 @@ import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Loader;
 import android.content.DialogInterface.OnShowListener;
-import android.database.ContentObserver;
 import android.database.Cursor;
 import android.speech.tts.TextToSpeech.EngineInfo;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnLongClickListener;
-import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -372,12 +362,10 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 		.setPositiveButton(R.string.dialog_language_ok, new DialogInterface.OnClickListener() {		
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				// TODO Auto-generated method stub
 				
 				boolean result = false;
 				if(-1 != mSpeechEngineIndex)
 				{
-				    //List<EngineInfo> engineInfoList = mSpeechEngineInformation.GetAvailableEngines();
 				    result = mTextToSpeechController.SetEngine(mEngineInfoList.get(mSpeechEngineIndex));
 				}
 				

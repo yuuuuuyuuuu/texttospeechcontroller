@@ -19,7 +19,6 @@ public class SentenceDbHelper extends ContentProvider {
 	private static final String TABLE_NAME = "sentencelisttable2";
 	private static final String CREATE_TABLE_SQL = "create table if not exists " + TABLE_NAME + " ( _id integer primary key autoincrement, sentence text , selected integer default 0);";
 	private static final String DROP_TABLE_SQL = "drop table " + TABLE_NAME + ";";
-	private static final String[] DB_COLUMNS = new String[]{"_id", "sentence", "selected"};
 	
 	@Override
 	public int delete(Uri uri, String selection, String[] selectionArgs) {
