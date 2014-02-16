@@ -24,6 +24,17 @@
     <string name="dialog_label_select_engine">Select Speech Engine</string>
     <string name="label_default_not_set">-----</string>
     <string name="label_initial_dialog_title">Hello, mate !</string>
-    <string name="label_initial_dialog_explanation">Thank you for using this app! Heres just a quick guide.</string>
+    <string name="label_initial_dialog_explanation">Quick guide of basic usage \n\n
+1. Check out phrases to speak by tapping pink circle at each row. \n
+2. Press "speak now !" to let your mobile speak. \n
+3. Press "Add New Phrase" to add your favourite phrases. \n
+\n\n
+Seems not working well? \n
+Please try belows:\n
+- Set media volume unmuted.\n
+- Set appropriate language to  speak. \n
+- If your favourite language is not found on setting, please install text-to-speeach engines. \n
+- If you still encounter problems, we welcome contact from you.</string>
+    <string name="label_menu_information">information</string>
 
 </resources>

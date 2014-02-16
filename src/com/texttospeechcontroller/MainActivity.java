@@ -89,9 +89,6 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		// Window settings
-		// this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-				
 		setContentView(R.layout.activity_main);
 		
 		mTextToSpeechController = new TextToSpeechController(this);
@@ -121,14 +118,15 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 			mPreferenceController.setInitialLaunchSetting(false);
 			
 			// show initial explanation flag
-			createInitialExplanationDialog();
-			mInitialExplanationDialog.show();
-		}
-		else
-		{
+			showInitialExplanationDialog();
 			
 		}
-		
+					
+	}
+
+	private void showInitialExplanationDialog() {
+		createInitialExplanationDialog();
+		mInitialExplanationDialog.show();
 	}
 
 	private void fillDefaultCandidates() {
@@ -507,4 +505,26 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 		}
 	};
 
+	@Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // メニューアイテムを追加します
+        menu.add(Menu.NONE, Menu.FIRST, Menu.NONE, R.string.label_menu_information);
+        
+        return super.onCreateOptionsMenu(menu);
+    }
+	
+	@Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        boolean ret = true;
+        switch (item.getItemId()) {
+        default:
+            ret = super.onOptionsItemSelected(item);
+            break;
+        case Menu.FIRST:
+        	showInitialExplanationDialog();
+            ret = true;
+            break;
+        }
+        return ret;
+    }
 }
