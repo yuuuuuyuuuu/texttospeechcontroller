@@ -6,6 +6,7 @@ import java.util.Locale;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.LoaderManager;
@@ -16,6 +17,7 @@ import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Loader;
 import android.content.DialogInterface.OnShowListener;
+import android.database.ContentObserver;
 import android.database.Cursor;
 import android.speech.tts.TextToSpeech.EngineInfo;
 import android.util.Log;
@@ -38,7 +40,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends Activity implements OnClickListener, OnShowListener, android.content.DialogInterface.OnClickListener, OnItemClickListener {
+public class MainActivity extends Activity implements OnClickListener, OnShowListener, android.content.DialogInterface.OnClickListener {
 
 	private final String TAG = "MainActivity";
 	
@@ -74,7 +76,8 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 	private PreferenceController mPreferenceController = null;
 	
 	private static final Uri DB_URI = Uri.parse("content://com.texttospeechcontroller");
-	private static final String[] DB_COLUMNS = new String[]{"_id", "sentence"};
+	// private static final String[] DB_COLUMNS = new String[]{"_id", "sentence"};
+	private static final String[] DB_COLUMNS = new String[]{"_id", "sentence", "selected"};
 	
 	private List<EngineInfo> mEngineInfoList = null;
 	private List<Locale> mAvailableLocales = null;
@@ -127,9 +130,6 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 		mButtonAddCandidate = (Button)findViewById(R.id.buttonAddNew);
 		mButtonAddCandidate.setOnClickListener(this);
 		
-		// mButtonDeleteCandidate = (Button)findViewById(R.id.buttonDeleteCandidate);
-		// mButtonDeleteCandidate.setOnClickListener(this);
-		
 		mButtonSetLanguage = (Button)findViewById(R.id.buttonSetLanguage);
 		mButtonSetLanguage.setOnClickListener(this);
 		
@@ -149,8 +149,6 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 		ArrayList<CandidateInfo> candidateList = new ArrayList<CandidateInfo>();
 		mCandidateAdapter = new CandidateListViewAdapter(this, R.layout.listview_item_with_delete, candidateList);
 		mSentenceListView.setAdapter(mCandidateAdapter);
-		
-		mSentenceListView.setOnItemClickListener(this);
 		
 		// Engine Selection Dialog
 		mSpeechEngineSelectDialog = new AlertDialog.Builder(this)
@@ -364,6 +362,9 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 	
 	private void updateSentences()
 	{
+		Log.d(TAG, "updateSenteces start");
+		long startTime = System.currentTimeMillis();
+		
 		mCandidateAdapter.clear();
 		
 		boolean result =  mDbCursor.moveToFirst();
@@ -379,11 +380,14 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 			int id = mDbCursor.getInt(mDbCursor.getColumnIndex(DB_COLUMNS[0]));
 			String sentence = mDbCursor.getString(mDbCursor.getColumnIndex(DB_COLUMNS[1]));
 			String displayString = sentence;
-			CandidateInfo candidateInfo = new CandidateInfo(displayString, id);
+			int checkState = mDbCursor.getInt(mDbCursor.getColumnIndex(DB_COLUMNS[2]));
+			CandidateInfo candidateInfo = new CandidateInfo(displayString, id, checkState);
 			mCandidateAdapter.add(candidateInfo);
 			
 		}while(mDbCursor.moveToNext());
 		
+		Log.d(TAG, "updateSenteces end");
+		Log.d(TAG, "time: " + String.valueOf(System.currentTimeMillis() - startTime));
 	}
 	
 	@Override
@@ -423,7 +427,6 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 		String newCandidate = mTextViewAddDialog.getText().toString();
 		ContentValues cv = new ContentValues();
 		cv.put(DB_COLUMNS[1], newCandidate);
-		cv.put(DB_COLUMNS[2], 0);
 					
 		Uri result = getContentResolver().insert(DB_URI, cv);
 					
@@ -472,13 +475,5 @@ public class MainActivity extends Activity implements OnClickListener, OnShowLis
 			return loader;
 		}
 	};
-
-	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		// TODO Auto-generated method stub
-		ListView listView = (ListView) parent;
-        String item = (String) listView.getItemAtPosition(position);
-        
-	}
 
 }

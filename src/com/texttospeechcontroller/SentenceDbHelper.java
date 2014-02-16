@@ -16,8 +16,8 @@ public class SentenceDbHelper extends ContentProvider {
 	
 	// SQL
 	private static final String DB_NAME = "sentencelistdb";
-	private static final String TABLE_NAME = "sentencelisttable";
-	private static final String CREATE_TABLE_SQL = "create table " + TABLE_NAME + " ( _id integer primary key autoincrement, sentence text , selected integer default 0);";
+	private static final String TABLE_NAME = "sentencelisttable2";
+	private static final String CREATE_TABLE_SQL = "create table if not exists " + TABLE_NAME + " ( _id integer primary key autoincrement, sentence text , selected integer default 0);";
 	private static final String DROP_TABLE_SQL = "drop table " + TABLE_NAME + ";";
 	private static final String[] DB_COLUMNS = new String[]{"_id", "sentence", "selected"};
 	
@@ -58,7 +58,7 @@ public class SentenceDbHelper extends ContentProvider {
 		
 		return false;
 	}
-
+	
 	@Override
 	public Cursor query(Uri uri, String[] projection, String selection,
 			String[] selectionArgs, String sortOrder) {
@@ -66,6 +66,7 @@ public class SentenceDbHelper extends ContentProvider {
 		SQLiteDatabase db = mDbOpenHelper.getReadableDatabase();
         SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
         
+        db.execSQL(CREATE_TABLE_SQL);
         qb.setTables(TABLE_NAME);
         Cursor c = qb.query(db, projection, selection, selectionArgs, null, null, null);
         
@@ -80,9 +81,14 @@ public class SentenceDbHelper extends ContentProvider {
 			String[] selectionArgs) {
 		
 		SQLiteDatabase db = mDbOpenHelper.getWritableDatabase();
-		db.update(TABLE_NAME, values, selection, null);
+		int result = db.update(TABLE_NAME, values, selection, null);
 		
-		return 0;
+		if(0 != result)
+		{
+			getContext().getContentResolver().notifyChange(uri, null);
+		}
+		
+		return result;
 	}
 	
 	

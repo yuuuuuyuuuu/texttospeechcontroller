@@ -8,7 +8,6 @@ import android.content.Context;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.EngineInfo;
 import android.speech.tts.TextToSpeech.OnInitListener;
-import android.util.Log;
 
 public class TextToSpeechWrapper implements OnInitListener {
 
@@ -99,7 +98,6 @@ public class TextToSpeechWrapper implements OnInitListener {
 		if(null == mTextToSpeech) return false;
 		
 		int result = mTextToSpeech.isLanguageAvailable(locale);
-		Log.d("Wrapper", String.valueOf(result));
 		if((result == TextToSpeech.LANG_MISSING_DATA) || (result == TextToSpeech.LANG_NOT_SUPPORTED))
 		{
 			return false;

@@ -8,11 +8,11 @@ public class CandidateInfo implements Serializable{
 	private String mSentence = "";
 	private int mIsChecked = 0;  // 0: unchecked  1: checked
 	
-	public CandidateInfo(String sentence, int dbId)
+	public CandidateInfo(String sentence, int dbId, int checkState)
 	{
 		mSentence = sentence;
 		mDbId = dbId;
-		mIsChecked = 0;
+		mIsChecked = checkState;
 	}
 	
 	public String getSentence()

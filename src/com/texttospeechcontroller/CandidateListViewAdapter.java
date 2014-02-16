@@ -3,6 +3,7 @@ package com.texttospeechcontroller;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
@@ -18,11 +19,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-public class CandidateListViewAdapter extends ArrayAdapter<CandidateInfo> {
+public class CandidateListViewAdapter extends ArrayAdapter<CandidateInfo> implements OnClickListener{
 
 	private static final Uri DB_URI = Uri.parse("content://com.texttospeechcontroller");
 	private static final String[] DB_COLUMNS = new String[]{"_id", "sentence", "selected"};
-	
 	
 	private Context mContext = null;
 	private int mResourceId = -1;
@@ -36,6 +36,7 @@ public class CandidateListViewAdapter extends ArrayAdapter<CandidateInfo> {
 		mContext = context;
 		mResourceId = textViewResourceId;
 		mItemList = objects;
+		
 	}
 
 	public void setDbHelper(SentenceDbHelper dbHelper)
@@ -59,32 +60,15 @@ public class CandidateListViewAdapter extends ArrayAdapter<CandidateInfo> {
 		mCandidateHolder.mTextViewId = (TextView) row.findViewById(R.id.textview_listview_id);
 		mCandidateHolder.mTextViewSentence = (TextView) row.findViewById(R.id.textview_listview_candidate);
 		mCandidateHolder.mImageButtonDelete = (ImageButton)row.findViewById(R.id.imagebutton_delete);
+
+		mCandidateHolder.mImageButtonDelete.setOnClickListener(this);
 		
-		final int pos = position;
-		mCandidateHolder.mImageButtonDelete.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				
-				String selection = DB_COLUMNS[0] + "=" + String.valueOf(mItemList.get(pos).getDbId());
-				int row = getContext().getContentResolver().delete(DB_URI, selection, null);
-				Log.d("CandidateLisViewAdapter", String.valueOf(row));
-			}
-			
-		});
+		mCandidateHolder.mImageButtonDelete.setTag(position);
 		
 		mCandidateHolder.mCheckBoxSpeak = (CheckBox)row.findViewById(R.id.checkBox_speak);
-		
-		mCandidateHolder.mCheckBoxSpeak.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView,
-					boolean isChecked) {
-				mItemList.get(pos).setChecked(isChecked);
-			}
-		});
-		
-		mCandidateHolder.mCheckBoxSpeak.setChecked(mItemList.get(pos).isChecked());
+		mCandidateHolder.mCheckBoxSpeak.setTag(position);
+		mCandidateHolder.mCheckBoxSpeak.setChecked(getItem(position).isChecked());
+		mCandidateHolder.mCheckBoxSpeak.setOnClickListener(this);
 		
 		row.setTag(mCandidateHolder);
 		setupItem(mCandidateHolder, position);
@@ -102,6 +86,7 @@ public class CandidateListViewAdapter extends ArrayAdapter<CandidateInfo> {
 		
 		mCandidateHolder.mTextViewId.setText(String.valueOf(position + 1));
 		mCandidateHolder.mTextViewSentence.setText(mCandidateHolder.mCandidateInfo.getSentence());
+		
 	}
 
 	public static class CandidateInfoHolder {
@@ -110,5 +95,49 @@ public class CandidateListViewAdapter extends ArrayAdapter<CandidateInfo> {
 		TextView mTextViewSentence;
 		CheckBox mCheckBoxSpeak;
 		ImageButton mImageButtonDelete;
+	}
+
+	@Override
+	public void onClick(View v) {
+		
+		if(v instanceof ImageButton)
+		{
+			ImageButton ib = (ImageButton)v;
+			
+			int pos = (Integer) ib.getTag();
+			CandidateInfo info = getItem(pos);
+			
+			deleteRow(info.getDbId());
+		}
+		else if (v instanceof CheckBox)
+		{
+			CheckBox cb = (CheckBox) v;
+			boolean checkState = cb.isChecked();
+			int checkStateInt = 0;
+			if(checkState) checkStateInt = 1;
+			
+			int  pos = (Integer) cb.getTag();
+			CandidateInfo info = getItem(pos);
+			
+			ContentValues cv = new ContentValues();
+			cv.put(DB_COLUMNS[1], info.getSentence());
+			cv.put(DB_COLUMNS[2], checkStateInt);
+			
+			updateRow(info.getDbId(), cv);
+		}
+		
+	}
+	
+	private void updateRow(int dbRowNum, ContentValues cv)
+	{
+		String selection = DB_COLUMNS[0] + "=" + String.valueOf(dbRowNum);
+		int row = getContext().getContentResolver().update(DB_URI, cv, selection, null);
+	}
+	
+	private void deleteRow(int dbRowNum)
+	{
+		String selection = DB_COLUMNS[0] + "=" + String.valueOf(dbRowNum);
+		int row = getContext().getContentResolver().delete(DB_URI, selection, null);
+		
 	}
 }
